@@ -1,3 +1,4 @@
+//variables
 var numberOfSquares = 9;
 var colors = generateRandomColors(numberOfSquares);
 var squares = document.querySelectorAll(".square");
@@ -10,7 +11,7 @@ var easyBtn = document.querySelector("#easyBtn");
 var hardBtn = document.querySelector("#hardBtn");
 var insaneBtn = document.querySelector("#insaneBtn");
 
-//Functions
+//functions
 function changeColors(color) {
 
     //loop through all squares
@@ -34,8 +35,6 @@ function generateRandomColors(num) {
     //add num random color to array
     for (var i = 0; i < num; i++) {
         arr.push(randomColor());
-        //ger random color and push into array
-
     }
     //return that array
     return arr;
@@ -53,7 +52,32 @@ function randomColor() {
     return "rgb(" + r + ", " + g + ", " + b + ")";
 }
 
-//Game Code
+function reset() {
+    //generate all new colors
+    colors = generateRandomColors(numberOfSquares);
+
+    //pick a new random color
+    pickedColor = pickColor();
+
+    //change colorDisplay to match picked color
+    colorDisplay.textContent = pickedColor;
+
+    //change colors of the squares
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = colors[i];
+    }
+
+    //reset the color for header
+    h1.style.backgroundColor = "steelblue";
+
+    //resetButton text content
+    resetButton.textContent = "New Colors";
+
+    //message display
+    messageDisplay.textContent = "";
+}
+
+//game code
 colorDisplay.textContent = pickedColor.toLocaleUpperCase();
 
 for (var i = 0; i < squares.length; i++) {
@@ -80,30 +104,8 @@ for (var i = 0; i < squares.length; i++) {
     });
 };
 
-resetButton.addEventListener("click", function () {
-    //generate all new colors
-    colors = generateRandomColors(numberOfSquares);
-
-    //pick a new random color
-    pickedColor = pickColor();
-
-    //change colorDisplay to match picked color
-    colorDisplay.textContent = pickedColor;
-
-    //change colors of the squares
-    for (var i = 0; i < squares.length; i++) {
-        squares[i].style.backgroundColor = colors[i];
-    }
-
-    //reset the color for header
-    h1.style.backgroundColor = "steelblue";
-
-    //resetButton text content
-    this.textContent = "New Colors";
-
-    //message display
-    messageDisplay.textContent = "";
-});
+//buttons
+resetButton.addEventListener("click", reset);
 
 //difficulty
 easyBtn.addEventListener("click", function () {
@@ -123,7 +125,7 @@ easyBtn.addEventListener("click", function () {
             squares[i].style.display = "none";
         }
     }
-})
+});
 
 hardBtn.addEventListener("click", function () {
     easyBtn.classList.remove("selected")
@@ -163,4 +165,4 @@ insaneBtn.addEventListener("click", function () {
             squares[i].style.display = "none";
         }
     }
-})
+});
